@@ -1,6 +1,14 @@
 # Instant Café - E-Commerce Laravel
 
-Instant Café est une application e-commerce développée avec le framework Laravel et les librairies Filament et Inertia. Elle offre une plateforme complète pour la gestion et la vente de produits en ligne.
+Instant Café est une application e-commerce développée avec le framework **Laravel** et les librairies **Filament**, **Jetstream** et **Inertia.js**. Elle offre une plateforme complète pour la gestion et la vente de produits en ligne.
+
+## Technologies utilisées
+
+- **Laravel** : Framework PHP robuste pour le développement web.
+- **Jetstream** : Gestion de l'authentification et des sessions utilisateur.
+- **Inertia.js** : Permet d'utiliser Vue.js ou React sans API REST.
+- **Filament** : Outil d'administration puissant pour Laravel.
+- **Tailwind CSS** : Framework CSS moderne pour un design élégant et réactif.
 
 ## Fonctionnalités
 
@@ -15,6 +23,7 @@ Instant Café est une application e-commerce développée avec le framework Lara
 
 - PHP >= 8.0
 - Composer
+- Node.js & npm
 - Serveur web (Apache, Nginx, etc.)
 - Base de données (MySQL, PostgreSQL, SQlite, etc.)
 
@@ -31,6 +40,7 @@ Instant Café est une application e-commerce développée avec le framework Lara
 
    ```bash
    composer install
+   npm install
    ```
 
 3. **Configurer l'environnement**
