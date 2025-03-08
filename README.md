@@ -50,6 +50,10 @@ Instant Café est une application e-commerce développée avec le framework **La
    ```bash
    cp .env.example .env
    ```
+   Générer la clé de l'application :
+   ```bash
+   php artisan key:generate
+   ```
 
 4. **Migrer la base de données**
 
