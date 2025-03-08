@@ -35,7 +35,7 @@ Instant Café est une application e-commerce développée avec le framework Lara
 
 3. **Configurer l'environnement**
 
-Copier le fichier .env.example en .env et ajuster les paramètres de connexion à la base de données et autres configurations nécessaires.
+    Copier le fichier .env.example en .env et ajuster les paramètres de connexion à la base de données et autres configurations nécessaires.
 
    ```bash
    cp .env.example .env
@@ -53,4 +53,4 @@ Copier le fichier .env.example en .env et ajuster les paramètres de connexion �
     npm run dev
     php artisan serve
     ```
-L'application sera accessible à l'adresse http://localhost:8000.
+    L'application sera accessible à l'adresse http://localhost:8000.
