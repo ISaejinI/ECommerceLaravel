@@ -12,7 +12,7 @@ defineProps({
     <AppLayout>
         <div>
             <!-- Hero -->
-            <section class="w-full bg-[url('/bgHero.jpg')] bg-cover bg-center relative">
+            <section class="w-full bg-[url('/images/bgHero.jpg')] bg-cover bg-center relative">
                 <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 min-h-[550px] flex flex-col justify-end py-16 z-10 relative">
                     <h1 class="text-7xl font-display font-bold text-lightgreen mb-6">Arrêtez-vous un insant : <br /> Café et Matcha d'exception</h1>
