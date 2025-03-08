@@ -21,10 +21,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-
-    protected static ?string $navigationGroup = 'Utilisateurs';
-
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationGroup = 'Utilisateurs';
+    protected static ?string $navigationLabel = 'Clients';
+    protected static ?string $modelLabel = 'Client';
+    protected static ?string $pluralModelLabel = 'Clients';
+
+
 
     public static function getEloquentQuery(): Builder
     {
@@ -45,8 +48,8 @@ class UserResource extends Resource
                     ->required(),
                 TextInput::make('role')
                     ->required(),
-                TextInput::make('profile_photo_path'),
-                Fieldset::make('Customer')
+                // TextInput::make('profile_photo_path'),
+                Fieldset::make('Informations de l\'utilisateur')
                     ->relationship('customer')
                     ->schema([
                         TextInput::make('first_name')

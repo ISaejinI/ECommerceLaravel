@@ -45,9 +45,9 @@ class ProductResource extends Resource
                     ->relationship('categories', titleAttribute: 'label')
                     ->multiple(),
                 Repeater::make('images')
-                    ->relationship()
+                    ->relationship('images')
                     ->schema([
-                        FileUpload::make('img_url')
+                        FileUpload::make('img_path')
                             ->image()
                             ->imageEditor()
                             ->directory('products')
@@ -74,6 +74,8 @@ class ProductResource extends Resource
                     ->money('EUR')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock')
+                    ->badge()
+                    ->color(fn ($record)=>$record->stock>=15? 'success':'warning')
                     ->numeric()
                     ->sortable(),
             ])
