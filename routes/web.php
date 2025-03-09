@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddToCartController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::get('/categories', CategoriesController::class)->name('categories');
 
 Route::get('/category/{slug}', CategoryController::class)->name('category');
 
