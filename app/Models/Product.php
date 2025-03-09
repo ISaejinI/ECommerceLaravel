@@ -38,8 +38,8 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function orders(): HasMany
+    public function orders(): BelongsToMany
     {
-        return $this->hasMany(Order::class)->withPivot(['quantity', 'price']);
+        return $this->belongsToMany(Order::class)->withPivot(['quantity', 'price']);
     }
 }
