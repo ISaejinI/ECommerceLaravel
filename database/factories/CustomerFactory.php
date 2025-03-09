@@ -21,7 +21,7 @@ class CustomerFactory extends Factory
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'genre' => CustomerGenre::class,
+            'genre' => fake()->randomElement(CustomerGenre::cases()),
             'phone' => fake()->phoneNumber(),
             'birth_date' => fake()->dateTimeBetween('-80years', '-18years')->format('Y-m-d'),
         ];

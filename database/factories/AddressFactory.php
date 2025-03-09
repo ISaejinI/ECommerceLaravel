@@ -20,7 +20,6 @@ class AddressFactory extends Factory
             'street' => fake()->streetAddress(),
             'postcode' => fake()->postcode(),
             'city' => fake()->city(),
-            'is_default' => fake()->boolean(),
         ];
     }
 }

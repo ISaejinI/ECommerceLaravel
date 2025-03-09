@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CustomerGenre;
 use App\Enums\UserRole;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
@@ -9,7 +10,10 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -39,31 +43,61 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label('Identifiant')
                     ->required(),
                 TextInput::make('email')
+                    ->label('Adresse mail')
                     ->email()
                     ->required(),
                 TextInput::make('password')
+                    ->label('Mot de passe')
                     ->password()
-                    ->required(),
-                TextInput::make('role')
-                    ->required(),
-                // TextInput::make('profile_photo_path'),
-                Fieldset::make('Informations de l\'utilisateur')
+                    ->dehydrated(fn($state) => filled($state))
+                    ->required(fn(string $context): bool => $context === 'create'),
+                Fieldset::make('Informations générales')
                     ->relationship('customer')
                     ->schema([
                         TextInput::make('first_name')
+                            ->label('Prénom')
                             ->required(),
                         TextInput::make('last_name')
+                            ->label('Nom')
                             ->required(),
-                        TextInput::make('genre')
+                        Radio::make('genre')
+                            ->options([
+                                CustomerGenre::FEMALE->value => CustomerGenre::FEMALE->label(),
+                                CustomerGenre::MALE->value => CustomerGenre::MALE->label(),
+                            ])
+                            ->inline()
+                            ->inlineLabel(false)
                             ->required(),
                         TextInput::make('phone')
                             ->tel()
+                            ->label('Numéro de téléphone')
                             ->required(),
                         DatePicker::make('birth_date')
+                            ->label('Date de naissance')
                             ->required(),
-                    ])
+                        Repeater::make('Adresses')
+                            ->relationship('addresses')
+                            ->schema([
+                                TextInput::make('street')
+                                    ->label('Rue')
+                                    ->columnSpanFull()
+                                    ->required(),
+                                TextInput::make('postcode')
+                                    ->label('Code postal')
+                                    ->required(),
+                                TextInput::make('city')
+                                    ->label('Ville')
+                                    ->required(),
+                                Toggle::make('is_default')
+                                    ->label('Adresse par défaut')
+                                    ->default(false),
+                            ])
+                            ->columnSpanFull()
+                            ->columns(2),
+                    ]),
             ]);
     }
 
