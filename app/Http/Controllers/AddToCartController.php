@@ -13,8 +13,12 @@ class AddToCartController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(AddToCartRequest $request, Product $productId)
+    public function __invoke(Request $request, Product $productId)
     {
+        $request->validate([
+            'quantity' => 'required|numeric|min:1|max:'.$productId->stock,
+        ]);
+
         if (!Auth::check()) {
             return redirect(route('home'), 401);
         }
@@ -26,12 +30,12 @@ class AddToCartController extends Controller
             $userCart = Cart::create(['customer_id' => $user->customer->id]);
         }
 
-        if ($userCart->products()->where('product_id', $request->productId)->exists()) {
-            $userCart->products()->updateExistingPivot($request->productId,[
-                "quantity"=>$userCart->products->find($request->productId)->pivot->quantity + $request->quantity
+        if ($userCart->products()->where('product_id', $productId->id)->exists()) {
+            $userCart->products()->updateExistingPivot($productId->id,[
+                "quantity"=>$userCart->products->find($productId->id)->pivot->quantity + $request->quantity
             ]);
         } else {
-            $userCart->products()->attach($request->productId,[
+            $userCart->products()->attach($productId->id,[
                 "quantity"=>$request->quantity
             ]);
         }
