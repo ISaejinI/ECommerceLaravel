@@ -15,7 +15,7 @@ class CartController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $currentUser = auth()->user();
+        $currentUser = $request->user();
 
         $currentUserCart = $currentUser->customer->cart->products;
 

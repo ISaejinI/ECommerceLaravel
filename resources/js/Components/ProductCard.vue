@@ -1,11 +1,25 @@
 <script setup>
 import { PlusIcon } from '@heroicons/vue/24/outline';
+import { router } from '@inertiajs/vue3';
 
-defineProps({
+const props = defineProps({
     product: {
         type: Object,
     },
 });
+
+const addToCart = () => {
+    router.post(
+        route('addToCart', { productId: props.product.id }),
+        {
+            quantity: 1,
+            productId: props.product.id
+        },
+        {
+            preserveScroll: true,
+        }
+    )
+}
 </script>
 
 <template>
@@ -22,9 +36,9 @@ defineProps({
         </a>
         <div class="w-full flex justify-between items-center">
             <p class="text-gray-900 font-bold text-lg mb-2">{{ product.price }} €</p>
-            <a :href="route('addToCart', { product: product })" class="w-fit bg-neutralgreen text-white px-4 py-2 rounded hover:bg-darkgreen">
+            <button @click="addToCart()" class="w-fit bg-neutralgreen text-white px-4 py-2 rounded hover:bg-darkgreen">
                 <PlusIcon class="size-6" />
-            </a>
+            </button>
         </div>
     </div>
 </template>

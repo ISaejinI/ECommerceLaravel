@@ -30,5 +30,5 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('/cart', CartController::class)->name('cart');
-    Route::post('/addtocart/{product}', AddToCartController::class)->name('addToCart');
+    Route::post('/addtocart/{productId}', AddToCartController::class)->name('addToCart');
 });

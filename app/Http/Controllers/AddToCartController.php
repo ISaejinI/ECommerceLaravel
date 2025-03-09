@@ -6,50 +6,34 @@ use App\Http\Requests\AddToCartRequest;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddToCartController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(AddToCartRequest $request, Product $product)
+    public function __invoke(AddToCartRequest $request, Product $productId)
     {
-
-        // Récupérer le customer -> user()->customer->customer.id // Récupérer le panier de l'user
-            //Mettre des parenthèses pour pourvoir utiliser des fonctions derrère 
-        // request -> validate
+        if (!Auth::check()) {
+            return redirect(route('home'), 401);
+        }
         
-        $user = $request->user()->customer;
-        $userCart = $user->cart;
-
+        $user = $request->user();
+        $userCart = $user->customer->cart;
 
         if (!$userCart) {
-            $userCart = Cart::create(['customer_id' => $user->id]);
+            $userCart = Cart::create(['customer_id' => $user->customer->id]);
         }
 
-        if($userCart->products->contains($product)){
-            $userCart->products()->updateExistingPivot($product,[
-                "quantity"=>$userCart->products->find($product)->pivot->quantity + $request->quantity
+        if ($userCart->products()->where('product_id', $request->productId)->exists()) {
+            $userCart->products()->updateExistingPivot($request->productId,[
+                "quantity"=>$userCart->products->find($request->productId)->pivot->quantity + $request->quantity
             ]);
         } else {
-            $userCart->products()->attach($product,[
+            $userCart->products()->attach($request->productId,[
                 "quantity"=>$request->quantity
             ]);
         }
-        
-
-
-        
-
-        // if $produit -> ajouter la quantité en plus // Sinon ajouter au panier
-
-        // Méthode create vient du model -> pas besoin de la définir
-    
-
-
-
-        //Créer un fichier de validation et remplacer le request
-
-        dd($request);
     }
 }
