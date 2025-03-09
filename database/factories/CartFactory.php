@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,19 @@ class CartFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        return [];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Cart $cart) {
+            $productsAdd = Product::inRandomOrder()->limit(rand(0, 4))->get();
+            foreach ($productsAdd as $product) {
+                $cart->products()->attach(
+                    $product->id,
+                    ['quantity' => rand(1, 5)]
+                );
+            }
+        });
     }
 }
