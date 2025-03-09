@@ -28,13 +28,18 @@ class Order extends Model
         ];
     }
 
-    public function products():BelongsToMany
+    public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
     }
 
-    public function customer():BelongsTo
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function shipping_address(): BelongsTo
+    {
+        return $this->belongsTo(Shipping_address::class);
     }
 }
