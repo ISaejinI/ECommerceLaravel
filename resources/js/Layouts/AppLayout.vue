@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed } from "vue";
 import { Head, Link, router, usePage } from "@inertiajs/vue3";
-import ApplicationMark from "@/Components/ApplicationMark.vue";
 import Banner from "@/Components/Banner.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
+import { ShoppingBagIcon } from "@heroicons/vue/24/outline";
 
 defineProps({
     title: String,
@@ -38,7 +38,7 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('home')">
-                                <ApplicationMark class="block h-9 w-auto" />
+                                <img src="/images/logo.png" class="block h-9 w-auto">
                                 </Link>
                             </div>
 
@@ -69,7 +69,10 @@ const logout = () => {
 
                             <!-- Connecté -->
                             <template v-else>
-                                <div class="ms-3 relative">
+                                <div class="ms-3 relative flex gap-6">
+                                    <NavLink :href="route('cart')">
+                                        <ShoppingBagIcon class="size-6" />
+                                    </NavLink>
                                     <Dropdown align="right" width="48">
                                         <template #trigger>
                                             <button v-if="
@@ -78,9 +81,9 @@ const logout = () => {
                                             "
                                                 class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                                 <img class="size-8 rounded-full object-cover" :src="$page.props.auth.user
-                                                        .profile_photo_url
+                                                    .profile_photo_url
                                                     " :alt="$page.props.auth.user
-                                                            .name
+                                                        .name
                                                         " />
                                             </button>
 
@@ -110,6 +113,10 @@ const logout = () => {
 
                                             <DropdownLink :href="route('profile.show')">
                                                 Profil
+                                            </DropdownLink>
+
+                                            <DropdownLink :href="route('cart')">
+                                                Mon panier
                                             </DropdownLink>
 
                                             <div class="border-t border-gray-200" />
@@ -191,7 +198,7 @@ const logout = () => {
                                         .managesProfilePhotos
                                 " class="shrink-0 me-3">
                                     <img class="size-10 rounded-full object-cover" :src="$page.props.auth.user
-                                            .profile_photo_url
+                                        .profile_photo_url
                                         " :alt="$page.props.auth.user.name" />
                                 </div>
 
@@ -209,6 +216,10 @@ const logout = () => {
                                 <ResponsiveNavLink :href="route('profile.show')"
                                     :active="route().current('profile.show')">
                                     Profil
+                                </ResponsiveNavLink>
+
+                                <ResponsiveNavLink :href="route('cart')" :active="route().current('cart')">
+                                    Mon panier
                                 </ResponsiveNavLink>
 
                                 <!-- Authentication -->
