@@ -41,7 +41,7 @@ class OrderFactory extends Factory
                         'price' => $product->price*100,
                     ]
                 );
-                $totPrice += ($product->price*100) * $quantity;
+                $totPrice += ($product->price) * $quantity;
             }
             $order->total_amount = $totPrice;
             $order->save();

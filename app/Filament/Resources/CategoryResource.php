@@ -17,9 +17,10 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $modelLabel = 'Catégories';
+    protected static ?string $modelLabel = 'Catégorie';
+    protected static ?string $navigationLabel = 'Catégories';
+    protected static ?string $pluralModelLabel = 'Catégories';
     protected static ?string $navigationGroup = 'Magasin';
-
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     public static function form(Form $form): Form

@@ -20,9 +20,10 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $modelLabel = 'Produits';
+    protected static ?string $modelLabel = 'Produit';
+    protected static ?string $navigationLabel = 'Produits';
+    protected static ?string $pluralModelLabel = 'Produits';
     protected static ?string $navigationGroup = 'Magasin';
-
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
     public static function form(Form $form): Form
@@ -75,7 +76,7 @@ class ProductResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock')
                     ->badge()
-                    ->color(fn ($record)=>$record->stock>=15? 'success':'warning')
+                    ->color(fn($record) => $record->stock >= 15 ? 'success' : 'warning')
                     ->numeric()
                     ->sortable(),
             ])

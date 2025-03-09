@@ -6,12 +6,14 @@ use App\Enums\CustomerGenre;
 use App\Enums\UserRole;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\Product;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -78,25 +80,49 @@ class UserResource extends Resource
                         DatePicker::make('birth_date')
                             ->label('Date de naissance')
                             ->required(),
-                        Repeater::make('Adresses')
-                            ->relationship('addresses')
+                        Fieldset::make('Adresses')
                             ->schema([
-                                TextInput::make('street')
-                                    ->label('Rue')
+                                Repeater::make('Adresses')
+                                    ->relationship('addresses')
+                                    ->schema([
+                                        TextInput::make('street')
+                                            ->label('Rue')
+                                            ->columnSpanFull()
+                                            ->required(),
+                                        TextInput::make('postcode')
+                                            ->label('Code postal')
+                                            ->required(),
+                                        TextInput::make('city')
+                                            ->label('Ville')
+                                            ->required(),
+                                        Toggle::make('is_default')
+                                            ->label('Adresse par défaut')
+                                            ->default(false),
+                                    ])
                                     ->columnSpanFull()
-                                    ->required(),
-                                TextInput::make('postcode')
-                                    ->label('Code postal')
-                                    ->required(),
-                                TextInput::make('city')
-                                    ->label('Ville')
-                                    ->required(),
-                                Toggle::make('is_default')
-                                    ->label('Adresse par défaut')
-                                    ->default(false),
+                                    ->columns(2),
+                            ]),
+                        Fieldset::make('Panier')
+                            ->relationship('cart')
+                            ->schema([
+                                Repeater::make('Produits de la commande')
+                                    ->relationship('products')
+                                    ->label('')
+                                    ->schema([
+                                        TextInput::make('label')
+                                            ->label('Nom du produit')
+                                            ->disabled()
+                                            ->required(),
+                                        TextInput::make('quantity')
+                                            ->label('Quantité')
+                                            ->numeric()
+                                            ->disabled()
+                                            ->required(),
+                                    ])
+                                    ->columnSpanFull()
+                                    ->columns(2)
+                                    ->disabled()
                             ])
-                            ->columnSpanFull()
-                            ->columns(2),
                     ]),
             ]);
     }
