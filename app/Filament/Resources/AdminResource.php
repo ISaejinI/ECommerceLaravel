@@ -3,9 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Enums\UserRole;
-use App\Filament\Resources\UserResource\Pages\CreateUser;
-use App\Filament\Resources\UserResource\Pages\EditUser;
-use App\Filament\Resources\UserResource\Pages\ListUsers;
+use App\Filament\Resources\AdminResource\Pages\CreateAdmin;
+use App\Filament\Resources\AdminResource\Pages\EditAdmin;
+use App\Filament\Resources\AdminResource\Pages\ListAdmins;
 use App\Models\User;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
@@ -27,7 +27,8 @@ class AdminResource extends Resource
     protected static ?string $modelLabel = 'Administrateur';
     protected static ?string $pluralModelLabel = 'Administrateurs';
     
-    public static function getElementQuery(): Builder {
+    public static function getEloquentQuery(): Builder
+    {
         return parent::getEloquentQuery()->where('role', UserRole::ADMIN);
     }
 
@@ -84,9 +85,9 @@ class AdminResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListUsers::route('/'),
-            'create' => CreateUser::route('/create'),
-            'edit' => EditUser::route('/{record}/edit'),
+            'index' => ListAdmins::route('/'),
+            'create' => CreateAdmin::route('/create'),
+            'edit' => EditAdmin::route('/{record}/edit'),
         ];
     }
 }
