@@ -49,6 +49,15 @@ const updateAddress = (address) => {
         }
     )
 }
+
+const createOrder = () => {
+    router.post (
+        route('addOrder'),
+        {
+            preserveScroll: true,
+        }
+    )
+}
 </script>
 
 <template>
@@ -126,8 +135,9 @@ const updateAddress = (address) => {
                                     <p class="font-medium text-xl leading-8 text-black">{{ products.length }} produit(s)</p>
                                     <p class="font-semibold text-xl leading-8 text-indigo-600">{{ totalAmount }} €</p>
                                 </div>
-                                <button
-                                    class="w-full text-center bg-pink rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-lightgreen">Commander</button>
+                                <button @click="createOrder()" class="w-full text-center bg-pink rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-lightgreen">
+                                    Commander
+                                </button>
                             </form>
                         </div>
                     </div>

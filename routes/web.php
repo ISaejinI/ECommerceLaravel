@@ -4,6 +4,7 @@ use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CreateOrderController;
 use App\Http\Controllers\DeleteFromCartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -39,4 +40,6 @@ Route::middleware([
     Route::put('/updatecart/{product}', UpdateCartController::class)->name('updateCart');
 
     Route::put('/updateaddress/{address}', UpdateAddressController::class)->name('updateAddress');
+
+    Route::post('/createOrder', CreateOrderController::class)->name('addOrder');
 });
