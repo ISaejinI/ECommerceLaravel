@@ -40,7 +40,7 @@ defineProps({
                 <div class="mx-auto max-w-7xl px-4 my-16 sm:px-6 lg:px-8">
                     <div class="flex justify-between mb-8 items-center">
                         <h2 class="text-4xl font-display font-bold text-darkgreen">Nos catégories à la une</h2>
-                        <a :href="route('home')"
+                        <a :href="route('categories')"
                             class="mt-6 px-6 py-3 bg-neutralgreen hover:bg-lightgreen text-white font-semibold rounded-lg shadow-lg w-fit">
                             Toutes les catégories
                         </a>
