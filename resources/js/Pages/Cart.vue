@@ -22,6 +22,18 @@ const deleteFromCart = (product) => {
         }
     )
 }
+
+const updateCart = (product, quantity) => {
+    router.put(
+        route('updateCart', { product: product.id }),
+        {
+            quantity: quantity,
+        },
+        {
+            preserveScroll: true,
+        }
+    )
+}
 </script>
 
 <template>
@@ -57,7 +69,7 @@ const deleteFromCart = (product) => {
                             <div class="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2">
                                 <div class="flex items-center w-full mx-auto justify-center">
                                     <div class="block w-full">
-                                        <select id="quantity" class="h-12 border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none">
+                                        <select @change="updateCart(product, $event.target.value)" id="quantity" class="h-12 border border-gray-300 text-gray-600 text-base rounded-lg block w-full py-2.5 px-4 focus:outline-none">
                                             <option v-for="n in product.stock" :key="n" :selected="n == product.pivot.quantity" :value="n">{{ n }}</option>
                                         </select>
                                     </div>
