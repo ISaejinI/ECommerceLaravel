@@ -4,6 +4,7 @@ use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DeleteFromCartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
@@ -29,6 +30,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
     Route::get('/cart', CartController::class)->name('cart');
     Route::post('/addtocart/{productId}', AddToCartController::class)->name('addToCart');
+    Route::delete('/deletefromcart/{product}', DeleteFromCartController::class)->name('deleteFromCart');
 });

@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     products: {
@@ -12,6 +13,15 @@ const props = defineProps({
 const totalAmount = computed(() => {
     return props.products.reduce((sum, product) => sum + (product.price * product.pivot.quantity), 0); 
 })
+
+const deleteFromCart = (product) => {
+    router.delete(
+        route('deleteFromCart', { product: product.id }),
+        {
+            preserveScroll: true,
+        }
+    )
+}
 </script>
 
 <template>
@@ -51,7 +61,7 @@ const totalAmount = computed(() => {
                                             <option v-for="n in product.stock" :key="n" :selected="n == product.pivot.quantity" :value="n">{{ n }}</option>
                                         </select>
                                     </div>
-                                    <button class="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+                                    <button @click="deleteFromCart(product)" class="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
                                         <TrashIcon class="size-6" />
                                     </button>
                                 </div>
