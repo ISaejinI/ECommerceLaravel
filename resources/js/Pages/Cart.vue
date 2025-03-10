@@ -37,6 +37,18 @@ const updateCart = (product, quantity) => {
         }
     )
 }
+
+const updateAddress = (address) => {
+    router.put(
+        route('updateAddress', { address: address.id }),
+        {
+            is_default: true,
+        },
+        {
+            preserveScroll: true,
+        }
+    )
+}
 </script>
 
 <template>
@@ -99,11 +111,11 @@ const updateCart = (product, quantity) => {
                                 <p class="font-medium text-lg leading-8 text-black">{{ totalAmount }} €</p>
                             </div>
                             <form>
-                                <label class="flex  items-center mb-1.5 text-gray-600 text-sm font-medium">Livraison
+                                <label class="flex  items-center mb-1.5 text-gray-600 text-sm font-medium">Adresse de livraison :
                                 </label>
                                 <div class="pb-6">
                                     <div v-for="address in addresses" class="w-full flex items-center gap-4"> 
-                                        <input type="radio" name="addresse" :checked="address.is_default == true" :id="address.id">
+                                        <input @change="updateAddress(address)" type="radio" name="addresse" :checked="address.is_default == true" :id="address.id">
                                         <label :for="address.id">
                                             <p> {{ address.street }} {{ address.postcode }} {{ address.city }}</p>
                                         </label>
