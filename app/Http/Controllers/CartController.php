@@ -19,8 +19,11 @@ class CartController extends Controller
 
         $currentUserCart = $currentUser->customer->cart->products;
 
+        $currentUserAddresses = $currentUser->customer->addresses;
+
         return Inertia::render('Cart', [
             "products" => $currentUserCart,
+            "addresses" => $currentUserAddresses,
         ]);
     }
 }

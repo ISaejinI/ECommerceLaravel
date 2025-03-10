@@ -8,6 +8,9 @@ const props = defineProps({
     products: {
         type: Array
     },
+    addresses: {
+        type: Object
+    },
 })
 
 const totalAmount = computed(() => {
@@ -73,7 +76,7 @@ const updateCart = (product, quantity) => {
                                             <option v-for="n in product.stock" :key="n" :selected="n == product.pivot.quantity" :value="n">{{ n }}</option>
                                         </select>
                                     </div>
-                                    <button @click="deleteFromCart(product)" class="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
+                                    <button @click="deleteFromCart(product)" class="rounded-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50">
                                         <TrashIcon class="size-6" />
                                     </button>
                                 </div>
@@ -98,8 +101,13 @@ const updateCart = (product, quantity) => {
                             <form>
                                 <label class="flex  items-center mb-1.5 text-gray-600 text-sm font-medium">Livraison
                                 </label>
-                                <div class="flex pb-6">
-                                    
+                                <div class="pb-6">
+                                    <div v-for="address in addresses" class="w-full flex items-center gap-4"> 
+                                        <input type="radio" name="addresse" :checked="address.is_default == true" :id="address.id">
+                                        <label :for="address.id">
+                                            <p> {{ address.street }} {{ address.postcode }} {{ address.city }}</p>
+                                        </label>
+                                    </div>
                                 </div>
                                 
                                 <div class="flex items-center justify-between py-8">
@@ -107,7 +115,7 @@ const updateCart = (product, quantity) => {
                                     <p class="font-semibold text-xl leading-8 text-indigo-600">{{ totalAmount }} €</p>
                                 </div>
                                 <button
-                                    class="w-full text-center bg-indigo-600 rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-indigo-700">Checkout</button>
+                                    class="w-full text-center bg-pink rounded-xl py-3 px-6 font-semibold text-lg text-white transition-all duration-500 hover:bg-lightgreen">Commander</button>
                             </form>
                         </div>
                     </div>
